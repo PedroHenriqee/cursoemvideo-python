@@ -1,16 +1,23 @@
 print('/--ex91--/')
-from datetime import date
 
-carteira = dict()
-carteira['nome'] = str(input('Nome: '))
-carteira['nasc'] = date.today().year - int(input('Ano de Nascimento: '))
-carteira['ctps'] = int(input('Carteira de  Trabalho (0 não tem): '))
+from random import randint
+from time import sleep
+from operator import itemgetter
 
-if carteira['ctps'] != 0:
-    carteira['ano'] = int(input('Ano de Contratação: '))
-    carteira['salario'] = float(input('Salário: '))
-    carteira['aposentadoria'] = carteira['ano'] + 15 - (date.today().year - carteira['nasc'])
-print('-=' * 30)
+print('Valores sorteados:')
 
-for key, val in carteira.items():
-    print(f'-- {key} tem o valor {val}')
+pontos = {'jogador1': randint(1, 6),
+          'jogador2': randint(1, 6),
+          'jogador3': randint(1, 6),
+          'jogador4': randint(1, 6)}
+for key, val in pontos.items():
+    print(f'o {key} tirou {val} no dado.')
+    sleep(1)
+print('=-' * 30)
+
+ranking = list()
+ranking = sorted(pontos.items(), key=itemgetter(1), reverse=True)
+
+print('== RANKING DOS JOGADORES ==')
+for ind, val in enumerate(ranking):
+    print(f'{ind+1}º lugar: {val[0]} com {val[1]}.')

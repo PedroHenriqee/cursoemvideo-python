@@ -1,49 +1,37 @@
 print('/--ex94--/')
 
-jogadores = dict()
-lista_jogadores = list()
-tot_lst = list()
-tot = 0
+pessoas = {}
+cadastros = []
+idade = 0
 while True:
-    jogadores.clear()
-    jogadores['nome'] = str(input('Nome do jogador: '))
-    quant = int(input(f'Quantas partidas {jogadores["nome"]} jogou? '))
-    jogadores['gols'] = []
-    for lop in range(0, quant):
-        tot_lst.append(int(input(f'Quantos gols na partida {lop + 1}? ')))
-        tot += tot_lst[lop]
-    jogadores['gols'] = tot_lst[:]
-    jogadores['tot'] = tot
-    tot = 0
-    tot_lst.clear()
-    lista_jogadores.append(jogadores.copy())
+    pessoas.clear()
+    pessoas['nome'] = str(input('Nome: '))
+    while True:
+        pessoas['sexo'] = str(input('sexo: ')).upper().strip()[0]
+        if pessoas['sexo'] in 'FM':
+            break
+        print('ERRO! Por favor, digite apenas M ou F.')
+    pessoas['idade'] = int(input('Idade: '))
+    idade += pessoas['idade']
+    cadastros.append(pessoas.copy())
+
     while True:
         continuar = str(input('Quer continuar? [S/N]: ')).upper().strip()[0]
         if continuar in 'SN':
             break
-        else:
-            print('Digite entre S e N para prosseguir: ')
+        print('ERRO! Responda apenas S ou N.')
     if continuar == 'N':
         break
 print('=-' * 30)
 
-print(f'{"COD"} {"NOME"} {"GOLS":>8} {"TOTAL":>8}')
-print('-' * 30)
-for enu, lop in enumerate(lista_jogadores):
-    print(f'{enu} {lop['nome']} {lop['gols']} {lop['tot']}')
-
-while True:
-    print('-' * 30)
-    dados = int(input('Mostrar dados de qual jogador? (999 para parar) '))
-    if dados == 999:
-        break
-    if dados < len(lista_jogadores):
-        print(f'-- LEVANTAMENTO DO JOGADOR {lista_jogadores[dados]['nome']}')
-        for enu, lop in enumerate(lista_jogadores):
-            if enu == dados:
-                for key, gol in enumerate(lop['gols']):
-                    print(f'''    No jogo {key + 1} fez {gol} gols''')
-                break
-    else:
-        print('ESCOLHA UM JOGADOR EXISTENTE OU SAIA DO PROGRAMA!!')
-print('FIM DO PROGRAMA!!')
+media = idade / len(cadastros)
+print(f'A) Ao todo temos {len(cadastros)} pessoas cadastradas.')
+print(f'B) A médiade idade é de {media} anos.')
+print('C) As mulheres cadastradas foram', end=' ')
+for lop in range(0, len(cadastros)):
+    if cadastros[lop]['sexo'] == 'F':
+        print(f'{cadastros[lop]['nome']},', end=' ')
+print('\nD) Lista das pessoas que estão acima da média:')
+for lop in range(0, 4):
+    if cadastros[lop]['idade'] > media:
+        print(f'  Nome = {cadastros[lop]['nome']}; sexo = {cadastros[lop]['sexo']}; idade = {cadastros[lop]['idade']};')

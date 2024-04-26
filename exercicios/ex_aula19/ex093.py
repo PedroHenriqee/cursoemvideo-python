@@ -1,35 +1,26 @@
 print('/--ex93--/')
 
-cadastros = dict()
-lista_cadastro = list()
-idade = 0
-while True:
-    cadastros['nome'] = str(input('Nome: '))
-    sexo = str(input('Sexo [M/F]: ')).strip().upper()[0]
-    while sexo != 'M' and sexo != 'F':
-        print('ERRO! Por favor, digite apenas M ou F.')
-        sexo = str(input('Sexo [M/F]: ')).upper().strip()[0]
-    cadastros['sexo'] = sexo
-    cadastros['idade'] = int(input('Idade: '))
-    idade += cadastros['idade']
-    lista_cadastro.append([cadastros.copy()])
-    terminar = str(input('Quer continuar? [S/N]: ')).upper().strip()[0]
-    while terminar != 'N' and terminar != 'S':
-        print('ERRO! Responda apenas S ou N.')
-        terminar = str(input('Quer continuar? [S/N]: ')).strip().upper()[0]
-    if terminar == 'N':
-        break
-media = idade / len(lista_cadastro)
+jogo = dict()
+jogo['nome'] = str(input('Nome do Jogador: '))
+quant = int(input(f'Quantas partidas {jogo['nome']} jogou?: '))
+
+jogo['gols'] = []
+tot = 0
+for lop in range(0, quant):
+    gol = int(input(f'Quantos gols na partida {lop}?: '))
+    jogo['gols'] += [gol]
+    tot += gol
+jogo['total'] = tot
+
+print('=-' * 30)
+print(jogo)
 print('=-' * 30)
 
-print(f'A) Ao todo temos {len(lista_cadastro)} pessoas cadastradas.')
-print(f'B) A média de idade é de {media:.2f} anos')
-print(f'C) As mulheres cadastradas foram ', end='')
-for lop in lista_cadastro:
-    if lop[0]['sexo'] == 'F':
-        print(f'{lop[0]['nome']},', end=' ')
-print(f'\nD) Lista das pessoas que estão acima da média:')
-for lop in lista_cadastro:
-    if lop[0]['idade'] >= media:
-        print(f'''   Nome = {lop[0]['nome']}; sexo = {lop[0]['sexo']}; idade = {lop[0] ['idade']};''')
-print('<< ENCERRADO >>')
+for key, valor in jogo.items():
+    print(f'O campo {key} tem o valor {valor}')
+print('=-' * 30)
+
+print(f'O jogador {jogo['nome']} jogou {quant} partidas.')
+for lop in range(0, quant):
+    print(f'''      {f"=> Na partida {lop}, fez {jogo['gols'][lop]} gols"}''')
+print(f'Foi um total de {tot} gols')
