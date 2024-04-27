@@ -1,28 +1,32 @@
 print('/--ex98--/')
+from time import sleep
 
-def contagem(i, f, p):
+def contador(i, f, p):
+    print('=-' * 30)
+    if p == 0:
+        p = 1
     print(f'Contagem de {i} até {f} de {p} em {p}')
-    for lop in range(i, f, p):
-        print(lop, end=' ')
+    contI = i
+    contF = f
+    if contI < contF:
+        while contI <= f:
+            print(contI, end=' ', flush=True)
+            sleep(.5)
+            contI += p
+    else:
+        while contI >= contF:
+            print(contI, end=' ', flush=True)
+            sleep(.5)
+            contI -= p
+        
     print('FIM!')
+        
+contador(0, 10, 1)
+contador(10, 1, 1)
+print('=-' * 30)
 
-print('-=' * 30)
-print('Contagem de 1 até 10 de 1 em 1')
-for lop in range(0, 10):
-    print(lop+1, end=' ')
-print('FIM!')
-print('-=' * 30)
-
-print('Contagem de 0 até 10 de 2 em 2')
-for lop in range(10, 0, -2):
-    print(lop, end=' ')
-print('0', 'FIM!')
-print('-=' * 30)
-
-print('Agora é sua vez de personalizar a contagem')
-
+print('Agora é sua vez de personalizar a contagem!')
 inicio = int(input('Inicio: '))
 fim = int(input('Fim: '))
-passo = int(input('Passo: '))
-print('-=' * 30)
-contagem(inicio, fim, passo)
+passo = abs(int(input('Passo: ')))
+contador(inicio, fim, passo)
