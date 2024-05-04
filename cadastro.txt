@@ -1,0 +1,3 @@
+pedro;17
+julia;19
+rodrigo;45
